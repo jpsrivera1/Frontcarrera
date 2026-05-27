@@ -22,6 +22,13 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
+  // Escuchar evento de sesión expirada disparado por el interceptor de axios
+  useEffect(() => {
+    const handleUnauthorized = () => setUser(null);
+    window.addEventListener('auth:unauthorized', handleUnauthorized);
+    return () => window.removeEventListener('auth:unauthorized', handleUnauthorized);
+  }, []);
+
   /**
    * Primer paso del login: usuario + contraseña.
    * Retorna:

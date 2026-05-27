@@ -20,11 +20,11 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Si el token expiró o es inválido, limpiar sesión y redirigir al login
+    // Si el token expiró o es inválido, limpiar sesión y dejar que el router redirija
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      window.dispatchEvent(new CustomEvent('auth:unauthorized'));
     }
     const message =
       error.response?.data?.message ||

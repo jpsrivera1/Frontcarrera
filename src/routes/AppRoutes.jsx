@@ -14,20 +14,16 @@ const AppRoutes = () => (
   <Routes>
     <Route path="/login" element={<Login />} />
     <Route path="/" element={<Navigate to="/dashboard" replace />} />
-    <Route
-      element={
-        <ProtectedRoute>
-          <MainLayout />
-        </ProtectedRoute>
-      }
-    >
-      <Route path="/dashboard"     element={<Dashboard />} />
-      <Route path="/participantes" element={<Participantes />} />
-      <Route path="/pagos"         element={<Pagos />} />
-      <Route path="/kits"          element={<Kits />} />
-      <Route path="/preventa"      element={<Preventa />} />
-      <Route path="/reportes"      element={<Reportes />} />
-      <Route path="*"              element={<NotFound />} />
+    <Route element={<ProtectedRoute />}>
+      <Route element={<MainLayout />}>
+        <Route path="/dashboard"     element={<Dashboard />} />
+        <Route path="/participantes" element={<Participantes />} />
+        <Route path="/pagos"         element={<Pagos />} />
+        <Route path="/kits"          element={<Kits />} />
+        <Route path="/preventa"      element={<Preventa />} />
+        <Route path="/reportes"      element={<Reportes />} />
+        <Route path="*"              element={<NotFound />} />
+      </Route>
     </Route>
   </Routes>
 );
