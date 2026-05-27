@@ -1,10 +1,16 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const PAGE_SIZE = 15;
 
 const DataTable = ({ columns = [], data = [], loading = false, emptyText = 'Sin registros' }) => {
   const [page, setPage] = useState(1);
+
+  // Resetear a página 1 cada vez que cambie el conjunto de datos (p.ej. al filtrar)
+  useEffect(() => {
+    setPage(1);
+  }, [data]);
+
   const total = data.length;
   const pages = Math.ceil(total / PAGE_SIZE);
   const slice = data.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);

@@ -149,6 +149,7 @@ const Preventa = () => {
       const t = searchNombre.toLowerCase();
       result = result.filter(
         (b) =>
+          (b.nombre_alumno || '').toLowerCase().includes(t) ||
           (`${b.nombre || ''} ${b.apellidos || ''}`).toLowerCase().includes(t) ||
           b.nombre_comprador?.toLowerCase().includes(t)
       );
@@ -240,7 +241,8 @@ const Preventa = () => {
       setQuickError('Ingresa un número de boleto válido');
       return;
     }
-    const boleto = boletos.find((b) => b.numero_boleto === num);
+    // Comparación segura: convertir ambos lados a número para evitar fallos con string/number
+    const boleto = boletos.find((b) => Number(b.numero_boleto) === num);
     if (!boleto) {
       setQuickError(`No se encontró el boleto #${num}`);
       return;
